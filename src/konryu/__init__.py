@@ -1,2 +1,2 @@
-from ._plan_parser import parse_plan
-from ._exceptions import *
+from ._plan import parse_plan
+from .exceptions import *
