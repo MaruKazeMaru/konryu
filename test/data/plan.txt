@@ -1,0 +1,8 @@
+SRC_DIR=in
+DST_DIR=out
+
+RENDER render.txt
+IGNORE *base*
+COPY cp.txt
+LINKS lns.txt
+LINKH lnh.txt

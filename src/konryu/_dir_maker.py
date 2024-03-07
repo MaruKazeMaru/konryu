@@ -14,10 +14,18 @@ class DirMaker:
         self.src_dir_path = src_dir_path # must be absolute path
         self.dst_dir_path = dst_dir_path # must be absolute path
         self.manifests = manifests
+        self.logging = True
+        loader = jinja2.FileSystemLoader(str(self.src_dir_path))
+        self.env = jinja2.Environment(loader=loader)
 
 
     def make(self) -> None:
         self.rec_make(self.src_dir_path)
+
+
+    def _info(self, msg:str):
+        if self.logging:
+            print(msg)
 
 
     def rec_make(self, src_path:str) -> None:
@@ -36,21 +44,44 @@ class DirMaker:
 
                 # prepare directory
                 if not os.path.exists(dst_path.parent):
-                    os.makedirs(dst_path.parent, mode=755)
+                    os.makedirs(dst_path.parent, mode=0o775)
 
                 if rule_hit == RULE_RENDER:
-                    self.render(src_path, dst_path)
+                    self._render_file(src_path, dst_path)
                 elif rule_hit == RULE_COPY:
-                    shutil.copy(src_path, dst_path)
+                    self._copy_file(src_path, dst_path)
                 elif rule_hit == RULE_LINKH:
-                    os.link(src_path, dst_path)
+                    self._linkh_file(src_path, dst_path)
                 elif rule_hit == RULE_LINKS:
-                    os.symlink(src_path, dst_path)
+                    self._links_file(src_path, dst_path)
 
 
-    def render(self, src_path:str|pathlib.Path, dst_path:str|pathlib.Path) -> None:
+    def _render_file(self, src_path:str|pathlib.Path, dst_path:str|pathlib.Path) -> None:
+        p = pathlib.Path(src_path).relative_to(self.src_dir_path)
+        template = self.env.get_template(str(p))
         with open(dst_path, 'w') as f:
-            f.write(jinja2.Template(src_path).render())
+            f.write(template.render())
+        self._info("rendered : {} -> {}".format(src_path, dst_path))
+
+
+    def _copy_file(self, src_path:str|pathlib.Path, dst_path:str|pathlib.Path):
+        if (not os.path.exists(dst_path)) or (os.path.getmtime(dst_path) < os.path.getmtime(src_path)):
+            shutil.copy(src_path, dst_path)
+            self._info("copy : {} -> {}".format(src_path, dst_path))
+
+
+    def _linkh_file(self, src_path:str|pathlib.Path, dst_path:str|pathlib.Path):
+        if os.path.exists(dst_path):
+            os.remove(dst_path)
+        os.link(src_path, dst_path)
+        self._info("create hard link : {} -> {}".format(src_path, dst_path))
+
+
+    def _links_file(self, src_path:str|pathlib.Path, dst_path:str|pathlib.Path):
+        if os.path.exists(dst_path):
+            os.remove(dst_path)
+        os.symlink(src_path, dst_path)
+        self._info("create symbolic link : {} -> {}".format(src_path, dst_path))
 
 
     def __str__(self) -> str:
