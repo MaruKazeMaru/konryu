@@ -1,0 +1,7 @@
+src_dir=in
+ dst_dir=   out
+
+# hello
+render  *.html
+  IgNOre */base.html
+COPY *.png # hello

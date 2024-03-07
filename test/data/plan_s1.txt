@@ -1,0 +1,7 @@
+DST_DIR = out
+
+RENDER *.html
+IGNORE */base.html
+LINKS *.png *.jpeg
+LINKH media/*
+COPY */*.txt
