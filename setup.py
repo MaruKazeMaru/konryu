@@ -23,5 +23,11 @@ setup(
     install_requires=get_requires(),
     python_requires='>=3.9',
     packages=find_packages(where='src'),
-    package_dir={'': 'src'}
+    package_dir={'': 'src'},
+
+    entry_points={
+        'console_scripts': [
+            'konryu=konryu._cli:make',
+        ]
+    },
 )

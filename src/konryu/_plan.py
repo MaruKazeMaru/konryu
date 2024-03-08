@@ -2,7 +2,7 @@ import pathlib
 
 from ._dir_maker import DirMaker
 from ._constants import *
-from ._exceptions import UnknownRule, TooManyEqual, NotSetDstDir
+from .exceptions import UnknownRule, TooManyEqual, NotSetDstDir
 
 RULE_STR_RENDER = "RENDER"
 RULE_STR_COPY = "COPY"
