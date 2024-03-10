@@ -1,4 +1,5 @@
 # konryu
+![test_result](https://github.com/MaruKazeMaru/konryu/actions/workflows/python-package.yml/badge.svg)<br>
 minimum Jinja2 CLI tools
 
 ## 概要

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2024 ShinagwaKazemaru
+# SPDX-License-Identifier: MIT License
+
 class PlanSyntaxError(SyntaxError):
     pass
 

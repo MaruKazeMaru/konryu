@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2024 ShinagwaKazemaru
+# SPDX-License-Identifier: MIT License
+
+from __future__ import annotations
+
 import pathlib
 
 from ._dir_maker import DirMaker

@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2024 ShinagwaKazemaru
+# SPDX-License-Identifier: MIT License
+
+from __future__ import annotations
+
 import argparse
 
 from ._plan import parse_plan

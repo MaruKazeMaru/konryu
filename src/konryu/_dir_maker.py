@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2024 ShinagwaKazemaru
+# SPDX-License-Identifier: MIT License
+
+from __future__ import annotations
+
 import fnmatch
 import glob
 import os
