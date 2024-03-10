@@ -14,7 +14,7 @@ class DirMaker:
         self.src_dir_path = src_dir_path # must be absolute path
         self.dst_dir_path = dst_dir_path # must be absolute path
         self.manifests = manifests
-        self.logging = True
+        self.logging = False
         loader = jinja2.FileSystemLoader(str(self.src_dir_path))
         self.env = jinja2.Environment(loader=loader)
 
